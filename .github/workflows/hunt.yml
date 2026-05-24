@@ -23,8 +23,9 @@ jobs:
       - name: Setup OCI Config
         run: |
           mkdir -p ~/.oci
-          echo "${{ secrets.OCI_CONFIG }}" > ~/.oci/config
-          echo "${{ secrets.OCI_KEY }}" > ~/.oci/oci_api_key.pem
+          printf "%s" "${{ secrets.OCI_CONFIG }}" > ~/.oci/config
+          printf "%s" "${{ secrets.OCI_KEY }}" > ~/.oci/oci_api_key.pem
+          chmod 600 ~/.oci/config
           chmod 600 ~/.oci/oci_api_key.pem
 
       - name: Run Hunter

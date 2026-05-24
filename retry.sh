@@ -17,7 +17,7 @@ do
       --shape VM.Standard.A1.Flex \
       --query 'data[0].id' \
       --raw-output) \
-    --shape-config '{"ocpus":1,"memoryInGBs":2}' \
+      --shape-config ocpus=1,memory-in-gbs=2
     --display-name ampere-free-test
 
   if [ $? -eq 0 ]; then
