@@ -12,19 +12,31 @@ jobs:
       OCI_COMPARTMENT_ID: ${{ secrets.OCI_COMPARTMENT_ID }}
       OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
       OCI_AD: ${{ secrets.OCI_AD }}
+      OCI_USER: ${{ secrets.OCI_USER }}
+      OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
+      OCI_TENANCY: ${{ secrets.OCI_TENANCY }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install OCI CLI
         run: pip install oci-cli
 
-      - name: Setup OCI Config
+      - name: Setup OCI
         run: |
           mkdir -p ~/.oci
-          printf "%s" "${{ secrets.OCI_CONFIG }}" > ~/.oci/config
+
+          cat > ~/.oci/config <<EOF
+          [DEFAULT]
+          user=$OCI_USER
+          fingerprint=$OCI_FINGERPRINT
+          tenancy=$OCI_TENANCY
+          region=ap-singapore-1
+          key_file=/home/runner/.oci/oci_api_key.pem
+          EOF
+
           printf "%s" "${{ secrets.OCI_KEY }}" > ~/.oci/oci_api_key.pem
+
           chmod 600 ~/.oci/config
           chmod 600 ~/.oci/oci_api_key.pem
 
