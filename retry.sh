@@ -22,6 +22,8 @@ do
 
   if [ $? -eq 0 ]; then
     echo "SUCCESS!"
+    curl -s -X POST "https://ntfy.sh/$NTFY_TOPIC" \
+      -d "OCI Ampere instance created!"    
     exit 0
   fi
 
