@@ -25,6 +25,6 @@ do
     exit 0
   fi
 
-  echo "Retrying in 90 seconds..."
-  sleep 90
+  echo "Retrying in 70 seconds..."
+  sleep 70
 done
