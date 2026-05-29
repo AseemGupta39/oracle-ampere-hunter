@@ -22,7 +22,7 @@ do
     --assign-public-ip true \
     --shape-config '{"ocpus":1,"memoryInGBs":2}' \
     --display-name ampere-free-test \
-    --image-id "$IMAGE_ID"
+    --image-id "ocid1.image.oc1.ap-singapore-1.aaaaaaaa7x4t3jzqnr5vjvp66yasqfb27gw3p4cge3vz5ylhrdge43fefeca"
 
   if [ $? -eq 0 ]; then
     echo "SUCCESS!"
