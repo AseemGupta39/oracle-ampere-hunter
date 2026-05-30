@@ -5,10 +5,10 @@ IMAGE_ID=$(oci compute image list \
   --operating-system "Canonical Ubuntu" \
   --operating-system-version "24.04" \
   --shape VM.Standard.A1.Flex \
-  --query 'data[?contains("display-name", `Minimal`) && contains("display-name", `aarch64`)] | [0].id' \
+  --query 'data[0].id' \
   --raw-output)
 
-echo "Using latest Ubuntu 24 Minimal ARM image: $IMAGE_ID"
+echo "Using latest Ubuntu 24 image: $IMAGE_ID"
 
 while true
 do
