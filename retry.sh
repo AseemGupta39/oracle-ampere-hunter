@@ -3,12 +3,12 @@
 IMAGE_ID=$(oci compute image list \
   --compartment-id "$OCI_COMPARTMENT_ID" \
   --operating-system "Canonical Ubuntu" \
-  --operating-system-version "22.04" \
+  --operating-system-version "24.04" \
   --shape VM.Standard.A1.Flex \
-  --query 'data[0].id' \
+  --query 'data[?contains("display-name", `Minimal`) && contains("display-name", `aarch64`)] | [0].id' \
   --raw-output)
 
-echo "Using image: $IMAGE_ID"
+echo "Using latest Ubuntu 24 Minimal ARM image: $IMAGE_ID"
 
 while true
 do
@@ -22,8 +22,8 @@ do
     --assign-public-ip true \
     --shape-config '{"ocpus":1,"memoryInGBs":2}' \
     --display-name ampere-free-test \
-    --image-id "ocid1.image.oc1.ap-singapore-1.aaaaaaaa7x4t3jzqnr5vjvp66yasqfb27gw3p4cge3vz5ylhrdge43fefeca"
-
+    --image-id "$IMAGE_ID"
+    
   if [ $? -eq 0 ]; then
     echo "SUCCESS! Tiny instance created."
 
